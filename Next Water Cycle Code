@@ -1,0 +1,81 @@
+Import numpy as np 
+
+Import matplotlib.pyplot as plt 
+
+Import pandas as pd 
+
+#Importing the DataSet 
+
+Dataset = pd.read_csv(‘moisture_days.csv’) 
+
+X = dataset.iloc[:, :-1].values 
+
+Y = dataset.iloc[:, 1].values 
+
+#Splitting the DataSet into the following Training Set and Test Set 
+
+From sklearn.model_selection import train_test_split 
+
+X_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 1/3, random_state = 0) 
+
+#Feature Scaling 
+
+From sklearn.preprocessing import StandardScaler 
+
+Sc_x = StandardScaler() 
+
+X_train = sc_x.fit_transform(x_train) 
+
+X_test = sc_x.transform(x_test) 
+
+Sc_y = StandardScaler() 
+
+Y_train = sc_y.fit_transform(y_train) 
+
+#Fitting Simple Linear Regression to the Training Set 
+
+Regressor = LinearRegression() 
+
+Regressor.fit(x_train, y_train) 
+
+X_test[0] = 500; 
+
+X_test[1] = 1000; 
+
+#Predicting the Test Set Results 
+
+Y_pred = regressor.predict(x_test) 
+
+Days = y_pred[1] 
+
+Print(‘\n \n \n \t Water Needed After = ‘+str(days)+’ days’) 
+
+#Visualising the Training Set Results 
+
+Plt.scatter(x_train, y_train, color= ‘red’) 
+
+Plt.plot(x_train, regressor.predict(x_train), color = ‘blue’) 
+
+Plt.title(‘Time vs Moisture(Training Set)’) 
+
+Plt.xlabel(‘Moisture’) 
+
+Plt.ylabel(‘Time’) 
+
+Plt.show() 
+
+#Visulaising the Test Set Results 
+
+Plt.scatter(x_test, y_test, color= ‘red’) 
+
+Plt.plot(x_train, regressor.predict(x_train), color = ‘blue’) 
+
+Plt.title(‘Time vs Moisture(Training Set)’) 
+
+Plt.xlabel(‘Moisture’) 
+
+Plt.ylabel(‘Time’) 
+
+Plt.show() 
+
+Print(‘\n \n \n \t Water Needed After = ‘+str(days)+’ days’)
